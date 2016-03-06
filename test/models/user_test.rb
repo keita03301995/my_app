@@ -48,8 +48,11 @@ class UserTest < ActiveSupport::TestCase
     end
   end
 
+  # 名前で弾かれている可能性もあるのでnameを変更してテスト
   test "同じメールアドレスが登録されていない事の確認" do
     duplicate_user = @user.dup
+    @user.name = "abcabc"
+    assert_not !!(duplicate_user.name == @user.name)
     @user.save
     assert_not duplicate_user.valid?
   end
